@@ -16,7 +16,33 @@
 
 
 <style>
+.final-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: #000;
+}
 
+.final-title {
+  color: #fff;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+}
+
+.open-btn {
+  padding: 14px 36px;
+  border-radius: 40px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
+  color: white;
+  box-shadow: 0 10px 25px rgba(255, 120, 160, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.open-btn:hover {
+  transform: scale(1.05);
+}
 /* Popup */
 #finalPopup {
   position: fixed;
@@ -1018,63 +1044,79 @@ item.addEventListener("pointermove", e => {
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+
   const cards = document.querySelectorAll(".draggable");
   const zones = document.querySelectorAll(".dropzone");
-  const result = document.getElementById("timeline-result");
-
   let matchedCount = 0;
 
+  const timelineData = [
+    { title: "First Concert Together 🎶", date:"24 Dec 2025", image:"Sunidhi.jpeg", message:"Our first concert together — SUNIDHI CHAUHAN !! loud music, full on dancing vibes 💕", caption:"The night where music and memories became one 🎵✨" },
+    { title: "First Time We Held Hands 🤝", date:"5 Dec 2022", image:"hands.jpeg", message:"That tiny moment meant everything 🥺 Remember in auto, I smelled your hair and it was sooooooo good", caption:"A small gesture, a forever feeling 🤍" },
+    { title: "Long Conversation at Eiffel Tower 🗼", date:"29 Nov 2023", image:"paris.jpeg", message:"My last day in Europe and we talking endlessly for 3 hours, and it felt weirdly comfortable and romantic! 💫", caption:"Paris, talks & magic ✨" },
+    { title: "First Date 💑", date:"08 Jan 2025", image:"firstdate.jpeg", message:"Where our story really began ❤️, Adam's Ale - it was soo much fun!", caption:"The beginning of us 💗" },
+    { title: "Bollywood-Themed Party 🎬", date:"3 Mar 2025", image:"bollywood.jpeg", message:"Drama, laughter, and us being us Perfect SRK and Naina combo💃🕺", caption:"Main character energy 🌟" }
+  ];
+
+  // Drag events
   cards.forEach(card => {
     card.addEventListener("dragstart", e => {
       e.dataTransfer.setData("text/plain", card.dataset.id);
+      e.dataTransfer.effectAllowed = "move";
       card.classList.add("dragging");
     });
-
-    card.addEventListener("dragend", () => {
-      card.classList.remove("dragging");
-    });
+    card.addEventListener("dragend", () => card.classList.remove("dragging"));
   });
 
   zones.forEach(zone => {
-    zone.addEventListener("dragover", e => {
-      e.preventDefault();
-      zone.classList.add("hovered");
-    });
-
-    zone.addEventListener("dragleave", () => {
-      zone.classList.remove("hovered");
-    });
-
+    zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("hovered"); });
+    zone.addEventListener("dragleave", () => zone.classList.remove("hovered"));
     zone.addEventListener("drop", e => {
       e.preventDefault();
       zone.classList.remove("hovered");
-
       const draggedId = e.dataTransfer.getData("text/plain");
+      if(!draggedId) return;
 
-      if (draggedId === zone.dataset.id) {
-        zone.classList.add("matched");
-        zone.textContent = "✅ Correct!";
-        matchedCount++;
-
+      if(draggedId === zone.dataset.id){
         const dragged = document.querySelector(`.draggable[data-id="${draggedId}"]`);
-        if (dragged) dragged.style.display = "none";
-
-        result.textContent = "💖 Correct! Memory unlocked.";
-
-        if (matchedCount === cards.length) {
-          result.textContent = "🥹 You unlocked all memories — forever us 💞";
+        dragged.classList.add("matched");
+        zone.classList.add("matched");
+        revealMemory(draggedId);
+        matchedCount++;
+        if(matchedCount === timelineData.length){
+          document.getElementById("timeline-result").innerText = "🥹 You unlocked every memory — forever us 💞";
+        } else {
+          document.getElementById("timeline-result").innerText = "💖 Correct! Memory unlocked.";
         }
       } else {
-        result.textContent = "Oops 😅 try again!";
+        document.getElementById("timeline-result").innerText = "Oops 😅 wrong match — try again!";
       }
     });
   });
+
+  // Show modal
+  function revealMemory(id){
+    const data = timelineData[id];
+    const modal = document.getElementById("memoryModal");
+    document.getElementById("modalTitle").innerText = data.title;
+    document.getElementById("modalDate").innerText = "📅 "+data.date+" — "+data.message;
+    document.getElementById("modalImg").src = data.image;
+    document.getElementById("modalCaption").innerText = data.caption;
+    modal.classList.remove("hidden");
+
+    // close modal
+    document.getElementById("closeModal").onclick = () => modal.classList.add("hidden");
+    modal.onclick = e => { if(e.target===modal) modal.classList.add("hidden"); }
+  }
+
 });
+
+
 </script>
 
 
 </body>
 </html>
+
 
 
 
