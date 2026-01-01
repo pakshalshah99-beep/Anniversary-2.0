@@ -674,7 +674,7 @@ document.querySelectorAll(".note-card").forEach(card => {
     <div id="quizBox" style="max-width:600px;margin:auto;">
         <p id="question"></p>
 
-        <div id="options"></div>
+        <div id="quizOptions"></div>
 
         <p id="quizFeedback" style="margin-top:20px;"></p>
     </div>
@@ -897,7 +897,7 @@ let currentQ = 0;
 let quizScore = 0;
 
 const questionEl = document.getElementById("question");
-const optionsEl = document.getElementById("options");
+const optionsEl = document.getElementById("quizOptions");
 const feedbackEl = document.getElementById("quizFeedback");
 const scoreEl = document.getElementById("quizScore");
 
@@ -1180,6 +1180,7 @@ loadEvent();
 
 </body>
 </html>
+
 
 
 
