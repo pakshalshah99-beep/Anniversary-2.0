@@ -16,64 +16,6 @@
 
 
 <style>
-@media (max-width: 480px) {
-  .drag-container {
-    gap: 12px;
-  }
-
-  .draggable {
-    font-size: 32px;
-  }
-
-  .drop-zone {
-    font-size: 0.95rem;
-  }
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-.drag-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  max-width: 100%;
-  padding: 10px;
-}
-
-.draggable {
-  font-size: 36px;
-  padding: 14px 18px;
-  border-radius: 16px;
-  background: #ffb6c1;
-  cursor: grab;
-
-  width: auto;
-  max-width: 80vw;      /* prevents overflow */
-  touch-action: none;
-  user-select: none;
-}
-
-
-.drop-zone {
-  width: min(90%, 280px);
-  min-height: 80px;
-  margin: 14px auto;
-  padding: 16px;
-  border-radius: 16px;
-  border: 2px dashed #aaa;
-  text-align: center;
-  font-size: 1rem;
-}
 
 
 @media (max-width: 600px) {
@@ -1134,3 +1076,4 @@ item.addEventListener("pointermove", e => {
 
 </body>
 </html>
+
