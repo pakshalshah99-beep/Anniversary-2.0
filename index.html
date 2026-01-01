@@ -3,6 +3,8 @@
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Handlee&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
 <title>2 Years of Us ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8" />
@@ -14,70 +16,97 @@
 
 
 <style>
-	.guess-game {
-  padding: 70px 20px;
-  text-align: center;
-  background: #000;
+@media (max-width: 480px) {
+  .drag-container {
+    gap: 12px;
+  }
+
+  .draggable {
+    font-size: 32px;
+  }
+
+  .drop-zone {
+    font-size: 0.95rem;
+  }
 }
 
-.game-title {
-  color: #fff;
-  font-size: 2rem;
-  margin-bottom: 6px;
+* {
+  box-sizing: border-box;
 }
 
-.game-sub {
-  color: #aaa;
-  margin-bottom: 25px;
-}
-
-.photo-box {
-  width: min(90%, 320px);
-  margin: 0 auto 25px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 12px 30px rgba(255, 150, 200, 0.25);
-}
-
-.photo-box img {
+html, body {
   width: 100%;
-  display: block;
-  filter: blur(7px);
-  transition: filter 0.4s ease;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-.photo-box img.reveal {
-  filter: blur(0);
-}
-
-.options {
+.drag-container {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-  max-width: 340px;
-  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 100%;
+  padding: 10px;
 }
 
-.options button {
-  padding: 14px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
+.draggable {
+  font-size: 36px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #ffb6c1;
+  cursor: grab;
+
+  width: auto;
+  max-width: 80vw;      /* prevents overflow */
+  touch-action: none;
+  user-select: none;
+}
+
+
+.drop-zone {
+  width: min(90%, 280px);
+  min-height: 80px;
+  margin: 14px auto;
+  padding: 16px;
+  border-radius: 16px;
+  border: 2px dashed #aaa;
+  text-align: center;
   font-size: 1rem;
-  background: linear-gradient(135deg, #ff9a9e, #fecfef);
-  color: #3a0030;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.options button:hover {
-  transform: scale(1.03);
-}
 
-#resultText {
-  margin-top: 18px;
-  font-size: 1.2rem;
-  min-height: 1.6em;
-  color: #ffd6e8;
+@media (max-width: 600px) {
+  .popup-box {
+    padding: 28px 22px;
+    border-radius: 18px;
+  }
+
+  .proposal-text {
+    font-size: 1.5rem;
+  }
+
+  .popup-box h1 {
+    font-size: 2rem;
+  }
+
+  .popup-box p {
+    font-size: 1.2rem;
+  }
+
+  .btn-group {
+    gap: 14px;
+  }
+
+  .yes-btn {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .open-btn {
+    width: 80%;
+    max-width: 260px;
+  }
 }
 
 .final-section {
@@ -263,7 +292,17 @@ footer { padding: 30px; opacity: 0.7; }
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
- 
+ body {
+  font-family: "Handlee", "Apple Color Emoji", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+button {
+  min-height: 44px;
+}
+
 </style>
 
 </head>
@@ -351,12 +390,19 @@ document.addEventListener("DOMContentLoaded", () => {
   let matchedCount = 0;
 
   const timelineData = [
-    { title: "First Concert Together 🎶", date:"24 Dec 2025", image:"sunidhi.jpeg", message:"Our first concert together — SUNIDHI CHAUHAN !! loud music, full on dancing vibes 💕", caption:"The night where music and memories became one 🎵✨" },
+    { title: "First Concert Together 🎶", date:"24 Dec 2025", image:"Sunidhi.jpeg", message:"Our first concert together — SUNIDHI CHAUHAN !! loud music, full on dancing vibes 💕", caption:"The night where music and memories became one 🎵✨" },
     { title: "First Time We Held Hands 🤝", date:"5 Dec 2022", image:"hands.jpeg", message:"That tiny moment meant everything 🥺 Remember in auto, I smelled your hair and it was sooooooo good", caption:"A small gesture, a forever feeling 🤍" },
-    { title: "Long Conversation at Eiffel Tower 🗼", date:"29 Nov 2023", image:"Paris.jpeg", message:"My last day in Europe and we talking endlessly for 3 hours, and it felt weirdly comfortable and romantic! 💫", caption:"Paris, talks & magic ✨" },
+    { title: "Long Conversation at Eiffel Tower 🗼", date:"29 Nov 2023", image:"paris.jpeg", message:"My last day in Europe and we talking endlessly for 3 hours, and it felt weirdly comfortable and romantic! 💫", caption:"Paris, talks & magic ✨" },
     { title: "First Date 💑", date:"08 Jan 2025", image:"firstdate.jpeg", message:"Where our story really began ❤️, Adam's Ale - it was soo much fun!", caption:"The beginning of us 💗" },
     { title: "Bollywood-Themed Party 🎬", date:"3 Mar 2025", image:"bollywood.jpeg", message:"Drama, laughter, and us being us Perfect SRK and Naina combo💃🕺", caption:"Main character energy 🌟" }
   ];
+<div class="drag-container">
+  <div class="draggable" data-match="heart">❤️</div>
+  <div class="draggable" data-match="star">⭐</div>
+</div>
+
+<div class="drop-zone" data-accept="heart">Drop ❤️ here</div>
+<div class="drop-zone" data-accept="star">Drop ⭐ here</div>
 
   // Drag events
   cards.forEach(card => {
@@ -608,6 +654,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .bindPopup(popupContent);
 });
 
+
+
 });
 </script>
 
@@ -674,7 +722,7 @@ document.querySelectorAll(".note-card").forEach(card => {
     <div id="quizBox" style="max-width:600px;margin:auto;">
         <p id="question"></p>
 
-        <div id="quizOptions"></div>
+        <div id="options"></div>
 
         <p id="quizFeedback" style="margin-top:20px;"></p>
     </div>
@@ -733,18 +781,6 @@ document.querySelectorAll(".note-card").forEach(card => {
 
 
 
-<section class="guess-game">
-  <h2 class="game-title">Guess the Moment 💭</h2>
-  <p class="game-sub" id="progressText">Moment 1 of 5</p>
-
-  <div class="photo-box">
-    <img id="guessImage" src="" alt="memory" />
-  </div>
-
-  <div class="options" id="optionsBox"></div>
-
-  <p id="resultText"></p>
-</section>
 
 <section class="final-section">
   <h2 class="final-title">One Last Thing…</h2>
@@ -768,6 +804,10 @@ document.querySelectorAll(".note-card").forEach(card => {
     2 years down. Forever to go ✨
 </footer>
 <script>
+/* LOVE NOTES */
+const note1 = "Meri dil ki Ichchha meri Ichchha ne 2 saal pehle puri kardi. Thank you for being my pure hearted soulmate ❤️";
+const note2 = "Thank you for jhelofying me for 2 years. Unfortunately you have to jhelofy me for 70 more years (and 7 more janam also) 😄";
+
 
 /* Game */
 let score = 0;
@@ -896,9 +936,8 @@ q: "Thoda tricky one - What does Pakshal hope never changes between us? 💞",
 let currentQ = 0;
 let quizScore = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
 const questionEl = document.getElementById("question");
-const optionsEl = document.getElementById("quizOptions");
+const optionsEl = document.getElementById("options");
 const feedbackEl = document.getElementById("quizFeedback");
 const scoreEl = document.getElementById("quizScore");
 
@@ -975,7 +1014,7 @@ function createHeart() {
 
 
 loadQuestion();
-}
+
 const music = document.getElementById("bgMusic");
 
 function showFinalPopup() {
@@ -1015,6 +1054,13 @@ let fade = setInterval(() => {
     clearInterval(fade);
   }
 }, 200);
+
+document.addEventListener("touchstart", () => {
+  const music = document.getElementById("bgMusic");
+  if (music && music.paused) {
+    music.play().catch(()=>{});
+  }
+}, { once: true });
 
 
 /* FIREWORKS */
@@ -1073,117 +1119,18 @@ function revealMemory(id) {
 setInterval(firework, 800);
 animate();
 
-const events = [
-  {
-    image: "CD.jpeg",
-    correct: 1,
-    options: [
-      "Banana Leaf (with Prajakta)",
-      "Christmas Date (Pop Tates)",
-      "Eve Powai"
-    ]
-  },
-  {
-    image: "BS.jpeg",
-    correct: 0,
-    options: [
-      "Anniversary at Bastian",
-      "Third Wave Coffee date ☕",
-      "Abhishek Upmanyu Standup 🌆"
-    ]
-  },
-  {
-    image: "RS.jpeg",
-    correct: 1,
-    options: [
-      "Bowling Dinner with friends 🛍️",
-      "Rahul Subramanium Standup 🌙",
-      "Pomodoro - NMACC "
-    ]
-  },
-  {
-    image: "PD.jpeg",
-    correct: 1,
-    options: [
-      "Your Birthday at Mystery Rooms 🎉",
-      "Pomodoro after dance class ✨",
-      "Deadpool vs Wolvering movie date 🍿"
-    ]
-  },
-  {
-    image: "CC.jpeg",
-    correct: 0,
-    options: [
-      "Candle light concert 📸",
-      "Random selfie 🤳",
-      "Dinner at Chilis 💬"
-    ]
-  }
-];
+item.addEventListener("pointermove", e => {
+  if (!activeItem) return;
 
-let current = 0;
+  const x = Math.min(window.innerWidth - 40, Math.max(10, e.clientX));
+  const y = Math.min(window.innerHeight - 40, Math.max(10, e.clientY));
 
-const img = document.getElementById("guessImage");
-const optionsBox = document.getElementById("optionsBox");
-const resultText = document.getElementById("resultText");
-const progressText = document.getElementById("progressText");
+  activeItem.style.left = x + "px";
+  activeItem.style.top = y + "px";
+});
 
-function loadEvent() {
-  const ev = events[current];
-  img.src = ev.image;
-  img.classList.remove("reveal");
-
-  progressText.textContent = `Moment ${current + 1} of ${events.length}`;
-  resultText.textContent = "";
-
-  optionsBox.innerHTML = "";
-
-  ev.options.forEach((opt, index) => {
-    const btn = document.createElement("button");
-    btn.textContent = opt;
-
-    btn.onclick = () => checkAnswer(index === ev.correct);
-
-    optionsBox.appendChild(btn);
-  });
-}
-
-function checkAnswer(correct) {
-  if (correct) {
-    img.classList.add("reveal");
-    resultText.textContent = "Correct 💖 You remember this perfectly!";
-
-    setTimeout(() => {
-      current++;
-      if (current < events.length) {
-        loadEvent();
-      } else {
-        showGameEnd();
-      }
-    }, 1500);
-  } else {
-    resultText.textContent = "Not this one 😅 try again!";
-  }
-}
-
-function showGameEnd() {
-  document.querySelector(".guess-game").innerHTML = `
-    <h2 style="color:white;">You got all 5 right 💕</h2>
-    <p style="color:#ffd6e8;font-size:1.2rem;">
-      Every memory with you is special ✨
-    </p>
-  `;
-}
-
-loadEvent();
 </script>
 
 
 </body>
 </html>
-
-
-
-
-
-
