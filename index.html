@@ -16,6 +16,63 @@
 
 
 <style>
+	.moment-card {
+  max-width: 380px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#momentImage {
+  width: 100%;
+  border-radius: 18px;
+  filter: blur(8px);
+  transition: 0.4s ease;
+}
+
+#momentImage.revealed {
+  filter: blur(0);
+}
+
+#momentOptions {
+  margin-top: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.moment-option-btn {
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.moment-option-btn:hover {
+  background: rgba(255,105,180,0.3);
+}
+
+.moment-option-btn.correct {
+  background: hotpink;
+  color: white;
+}
+
+.moment-option-btn.wrong {
+  animation: shake 0.3s;
+}
+
+#momentNextBtn {
+  margin-top: 18px;
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
+  color: white;
+}
+
 .final-section {
   text-align: center;
   padding: 80px 20px;
@@ -676,10 +733,6 @@ document.querySelectorAll(".note-card").forEach(card => {
 
   <p id="timeline-result"></p>
 </section>
-
-
-
-
 	
 <div id="memoryModal" class="modal hidden">
   <div class="modal-content">
@@ -691,6 +744,20 @@ document.querySelectorAll(".note-card").forEach(card => {
   </div>
 </div>
 
+<section id="guess-moment-section">
+  <h2>📸 Guess the Moment</h2>
+  <p id="momentCounter">Score: 0 / 5</p>
+
+  <div class="moment-card">
+    <img id="momentImage" src="" alt="moment" />
+
+    <div id="momentOptions"></div>
+
+    <button id="momentNextBtn" style="display:none;">Next 💕</button>
+  </div>
+
+  <p id="momentFeedback"></p>
+</section>
 
 
 
@@ -1109,13 +1176,116 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
+  const momentData = [
+    {
+      image: "CC.jpeg",
+      options: ["Candle Light Concert", "Anniversary at Sassy Spoon", "Marine Drive"],
+      correct: 0
+    },
+    {
+      image: "RS.jpeg",
+      options: ["Trip to Palladium Mall", "Rahul Subramanium Standup", "Banana Leaf date night"],
+      correct: 1
+    },
+    {
+      image: "CD.jpeg",
+      options: ["Abhishek Upmanyu Standup", "Tim Hortons in MarketCity", "Christmas at Pop Tates"],
+      correct: 2
+    },
+    {
+      image: "PD.jpeg",
+      options: ["Pomodoro-NMACC after dance class", "Dinner at Eve Powai", "Film City"],
+      correct: 0
+    },
+    {
+      image: "BS.jpeg",
+      options: ["Marine Drive", "Dinner at Chilis", "Anniversary at Bastian"],
+      correct: 2
+    }
+  ];
 
+  let currentMomentIndex = 0;
+  let momentScore = 0;
+
+  const momentImageEl = document.getElementById("momentImage");
+  const momentOptionsEl = document.getElementById("momentOptions");
+  const momentNextBtn = document.getElementById("momentNextBtn");
+  const momentFeedbackEl = document.getElementById("momentFeedback");
+  const momentCounterEl = document.getElementById("momentCounter");
+
+  function loadMoment() {
+    const data = momentData[currentMomentIndex];
+
+    momentImageEl.src = data.image;
+    momentImageEl.classList.remove("revealed");
+
+    momentOptionsEl.innerHTML = "";
+    momentFeedbackEl.textContent = "";
+    momentNextBtn.style.display = "none";
+
+    data.options.forEach((text, index) => {
+      const btn = document.createElement("button");
+      btn.className = "moment-option-btn";
+      btn.textContent = text;
+
+      btn.addEventListener("click", () => handleMomentAnswer(index, btn));
+      momentOptionsEl.appendChild(btn);
+    });
+
+    momentCounterEl.textContent = `Score: ${momentScore} / ${momentData.length}`;
+  }
+
+  function handleMomentAnswer(selectedIndex, button) {
+    const correctIndex = momentData[currentMomentIndex].correct;
+
+    if (selectedIndex === correctIndex) {
+      button.classList.add("correct");
+      momentImageEl.classList.add("revealed");
+      momentFeedbackEl.textContent = "💖 Correct!";
+      momentScore++;
+
+      momentNextBtn.style.display = "inline-block";
+    } else {
+      button.classList.add("wrong");
+      momentFeedbackEl.textContent = "Oops 😅 try again";
+      setTimeout(() => button.classList.remove("wrong"), 300);
+    }
+
+    // disable all buttons after correct
+    if (selectedIndex === correctIndex) {
+      document
+        .querySelectorAll(".moment-option-btn")
+        .forEach(b => (b.disabled = true));
+    }
+  }
+
+  momentNextBtn.addEventListener("click", () => {
+    currentMomentIndex++;
+
+    if (currentMomentIndex >= momentData.length) {
+      momentImageEl.style.display = "none";
+      momentOptionsEl.innerHTML = "";
+      momentNextBtn.style.display = "none";
+      momentFeedbackEl.textContent =
+        "🥹 You got them all! Forever us 💖";
+      return;
+    }
+
+    loadMoment();
+  });
+
+  loadMoment();
+});
 </script>
 
 
 </body>
 </html>
+
 
 
 
