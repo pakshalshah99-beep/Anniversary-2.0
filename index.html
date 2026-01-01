@@ -159,9 +159,25 @@ footer { padding: 30px; opacity: 0.7; }
 .draggable { cursor: grab; } 
 .draggable:active { cursor: grabbing; } 
 .dragging { opacity: 0.4; } 
-.dropzone { border: 2px dashed rgba(255,255,255,0.4); min-height: 48px; } 
-.dropzone.hovered { background: rgba(255,105,180,0.25); border-color: hotpink; } 
-.matched { background: hotpink !important; color: white; pointer-events: none; }
+.dropzone {
+  border: 2px dashed rgba(255,255,255,0.4);
+  min-height: 50px;
+  padding: 12px;
+  border-radius: 12px;
+  transition: 0.25s;
+}
+
+.dropzone.hovered {
+  background: rgba(255,105,180,0.25);
+  border-color: hotpink;
+}
+
+.matched {
+  background: hotpink !important;
+  color: white;
+  pointer-events: none;
+}
+
 
 #mumbaiMap {
   width: 100%;
@@ -601,16 +617,12 @@ document.querySelectorAll(".note-card").forEach(card => {
   <div id="quiz-gif" style="display:none; text-align:center; margin-top:30px;">
         <img src="love.gif" class="quiz-gif" alt="Celebration">
     </div>
-
 </section>
 
 <!-- Timeline game -->
-
-
-
 <section id="timeline-game">
   <h2>🗓️ Guess Our Timeline</h2>
-  <p class="hint">Drag a memory → drop it on the correct date 💞</p>
+  <p class="hint">Drag a moment → drop it on the correct date 💞</p>
 
   <div class="game-wrapper">
 
@@ -637,8 +649,12 @@ document.querySelectorAll(".note-card").forEach(card => {
   </div>
 
   <p id="timeline-result"></p>
-
 </section>
+
+
+
+
+	
 <div id="memoryModal" class="modal hidden">
   <div class="modal-content">
     <span id="closeModal" class="close">&times;</span>
@@ -1000,9 +1016,65 @@ item.addEventListener("pointermove", e => {
 });
 
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".draggable");
+  const zones = document.querySelectorAll(".dropzone");
+  const result = document.getElementById("timeline-result");
+
+  let matchedCount = 0;
+
+  cards.forEach(card => {
+    card.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", card.dataset.id);
+      card.classList.add("dragging");
+    });
+
+    card.addEventListener("dragend", () => {
+      card.classList.remove("dragging");
+    });
+  });
+
+  zones.forEach(zone => {
+    zone.addEventListener("dragover", e => {
+      e.preventDefault();
+      zone.classList.add("hovered");
+    });
+
+    zone.addEventListener("dragleave", () => {
+      zone.classList.remove("hovered");
+    });
+
+    zone.addEventListener("drop", e => {
+      e.preventDefault();
+      zone.classList.remove("hovered");
+
+      const draggedId = e.dataTransfer.getData("text/plain");
+
+      if (draggedId === zone.dataset.id) {
+        zone.classList.add("matched");
+        zone.textContent = "✅ Correct!";
+        matchedCount++;
+
+        const dragged = document.querySelector(`.draggable[data-id="${draggedId}"]`);
+        if (dragged) dragged.style.display = "none";
+
+        result.textContent = "💖 Correct! Memory unlocked.";
+
+        if (matchedCount === cards.length) {
+          result.textContent = "🥹 You unlocked all memories — forever us 💞";
+        }
+      } else {
+        result.textContent = "Oops 😅 try again!";
+      }
+    });
+  });
+});
+</script>
 
 
 </body>
 </html>
+
 
 
