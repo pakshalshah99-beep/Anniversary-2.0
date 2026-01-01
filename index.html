@@ -4,6 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Handlee&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
 <title>2 Years of Us ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8" />
@@ -15,6 +16,66 @@
 
 
 <style>
+@media (max-width: 480px) {
+  .drag-container {
+    gap: 12px;
+  }
+
+  .draggable {
+    font-size: 32px;
+  }
+
+  .drop-zone {
+    font-size: 0.95rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.drag-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 100%;
+  padding: 10px;
+}
+
+.draggable {
+  font-size: 36px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #ffb6c1;
+  cursor: grab;
+
+  width: auto;
+  max-width: 80vw;      /* prevents overflow */
+  touch-action: none;
+  user-select: none;
+}
+
+
+.drop-zone {
+  width: min(90%, 280px);
+  min-height: 80px;
+  margin: 14px auto;
+  padding: 16px;
+  border-radius: 16px;
+  border: 2px dashed #aaa;
+  text-align: center;
+  font-size: 1rem;
+}
+
+
 @media (max-width: 600px) {
   .popup-box {
     padding: 28px 22px;
@@ -335,6 +396,13 @@ document.addEventListener("DOMContentLoaded", () => {
     { title: "First Date 💑", date:"08 Jan 2025", image:"firstdate.jpeg", message:"Where our story really began ❤️, Adam's Ale - it was soo much fun!", caption:"The beginning of us 💗" },
     { title: "Bollywood-Themed Party 🎬", date:"3 Mar 2025", image:"bollywood.jpeg", message:"Drama, laughter, and us being us Perfect SRK and Naina combo💃🕺", caption:"Main character energy 🌟" }
   ];
+<div class="drag-container">
+  <div class="draggable" data-match="heart">❤️</div>
+  <div class="draggable" data-match="star">⭐</div>
+</div>
+
+<div class="drop-zone" data-accept="heart">Drop ❤️ here</div>
+<div class="drop-zone" data-accept="star">Drop ⭐ here</div>
 
   // Drag events
   cards.forEach(card => {
@@ -1050,6 +1118,17 @@ function revealMemory(id) {
 }
 setInterval(firework, 800);
 animate();
+
+item.addEventListener("pointermove", e => {
+  if (!activeItem) return;
+
+  const x = Math.min(window.innerWidth - 40, Math.max(10, e.clientX));
+  const y = Math.min(window.innerHeight - 40, Math.max(10, e.clientY));
+
+  activeItem.style.left = x + "px";
+  activeItem.style.top = y + "px";
+});
+
 </script>
 
 
