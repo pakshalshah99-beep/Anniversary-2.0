@@ -16,70 +16,22 @@
 
 
 <style>
-.guess-game {
-  padding: 70px 20px;
-  text-align: center;
-  background: #000;
+@media (max-width: 480px) {
+  .drag-container {
+    gap: 12px;
+  }
+
+  .draggable {
+    font-size: 32px;
+  }
+
+  .drop-zone {
+    font-size: 0.95rem;
+  }
 }
 
-.game-title {
-  color: #fff;
-  font-size: 2rem;
-  margin-bottom: 6px;
-}
-
-.game-sub {
-  color: #aaa;
-  margin-bottom: 25px;
-}
-
-.photo-box {
-  width: min(90%, 320px);
-  margin: 0 auto 25px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 12px 30px rgba(255, 150, 200, 0.25);
-}
-
-.photo-box img {
-  width: 100%;
-  display: block;
-  filter: blur(7px);
-  transition: filter 0.4s ease;
-}
-
-.photo-box img.reveal {
-  filter: blur(0);
-}
-
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  max-width: 340px;
-  margin: 0 auto;
-}
-
-.options button {
-  padding: 14px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  background: linear-gradient(135deg, #ff9a9e, #fecfef);
-  color: #3a0030;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.options button:hover {
-  transform: scale(1.03);
-}
-
-#resultText {
-  margin-top: 18px;
-  font-size: 1.2rem;
-  min-height: 1.6em;
-  color: #ffd6e8;
+* {
+  box-sizing: border-box;
 }
 
 html, body {
@@ -305,13 +257,13 @@ section { scroll-snap-align: start; min-height: 100vh; padding: 80px 20px; box-s
 .quiz-heart { position: fixed; font-size: 22px; pointer-events: none; animation: floatHeart 1.4s ease-out forwards; color: #ff4d6d; z-index: 999; } 
 @keyframes floatHeart { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(1.6); opacity: 0; } } 
 :root { --accent: #ff4d6d; --bg1: #0b0b14; --bg2: #000; --text: #ffffff; --soft: rgba(255,255,255,0.15); } 
-body {  overflow-x: hidden;  -webkit-overflow-scrolling: touch; font-family: "Handlee", "Apple Color Emoji", -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; background: radial-gradient(circle at top, #1a1a2e, var(--bg2)); color: var(--text); text-align: center; overflow-x: hidden; cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text x='0' y='24' font-size='24'>❤️</text></svg>") 8 8, auto; } 
+body { margin: 0; font-family: 'Segoe UI', sans-serif; background: radial-gradient(circle at top, #1a1a2e, var(--bg2)); color: var(--text); text-align: center; overflow-x: hidden; cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text x='0' y='24' font-size='24'>❤️</text></svg>") 8 8, auto; } 
 section { padding: 70px 20px; } 
 h1 { font-size: 3em; text-shadow: 0 0 10px rgba(255, 77, 109, 0.6), 0 0 25px rgba(255, 77, 109, 0.4); animation: glow 2s infinite alternate; } 
 @keyframes glow { from { text-shadow: 0 0 10px var(--accent); } to { text-shadow: 0 0 35px #ff9aa2; } } 
 h2 { color: #ffb3c1; } 
 p { font-size: 1.1em; max-width: 700px; margin: auto; } 
-button {  min-height: 44px; background: var(--accent); border: none; padding: 14px 28px; color: white; font-size: 16px; border-radius: 30px; cursor: pointer; margin-top: 20px; } 
+button { background: var(--accent); border: none; padding: 14px 28px; color: white; font-size: 16px; border-radius: 30px; cursor: pointer; margin-top: 20px; } 
 button:hover { transform: scale(1.05); } 
 .gallery img { width: 190px; height: 190px; object-fit: cover; border-radius: 20px; margin: 12px; box-shadow: 0 0 20px rgba(255,77,109,0.6); } 
 .note { background: var(--soft); padding: 28px; border-radius: 20px; margin: 25px auto; max-width: 650px; cursor: pointer; transition: 0.3s; } 
@@ -340,7 +292,16 @@ footer { padding: 30px; opacity: 0.7; }
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
-
+ body {
+  font-family: "Handlee", "Apple Color Emoji", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+button {
+  min-height: 44px;
+}
 
 </style>
 
@@ -775,18 +736,6 @@ document.querySelectorAll(".note-card").forEach(card => {
 
 <!-- Timeline game -->
 
-<section class="guess-game">
-  <h2 class="game-title">Guess the Moment 💭</h2>
-  <p class="game-sub" id="progressText">Moment 1 of 5</p>
-
-  <div class="photo-box">
-    <img id="guessImage" src="" alt="memory" />
-  </div>
-
-  <div class="options" id="optionsBox"></div>
-
-  <p id="resultText"></p>
-</section>
 
 
 <section id="timeline-game">
@@ -1180,118 +1129,8 @@ item.addEventListener("pointermove", e => {
   activeItem.style.top = y + "px";
 });
 
-	<script>
-const events = [
-  {
-    image: "images/event1.jpg",
-    correct: 1,
-    options: [
-      "Birthday surprise 🎂",
-      "Our first beach day 🌊",
-      "Movie night together 🎬"
-    ]
-  },
-  {
-    image: "images/event2.jpg",
-    correct: 0,
-    options: [
-      "First long drive 🚗",
-      "Coffee date ☕",
-      "Random evening walk 🌆"
-    ]
-  },
-  {
-    image: "images/event3.jpg",
-    correct: 2,
-    options: [
-      "Mall day 🛍️",
-      "Late night talks 🌙",
-      "First trip together ✈️"
-    ]
-  },
-  {
-    image: "images/event4.jpg",
-    correct: 1,
-    options: [
-      "Birthday celebration 🎉",
-      "Festive day together ✨",
-      "Movie marathon 🍿"
-    ]
-  },
-  {
-    image: "images/event5.jpg",
-    correct: 0,
-    options: [
-      "Our first photo together 📸",
-      "Random selfie 🤳",
-      "Video call memory 💬"
-    ]
-  }
-];
-
-let current = 0;
-
-const img = document.getElementById("guessImage");
-const optionsBox = document.getElementById("optionsBox");
-const resultText = document.getElementById("resultText");
-const progressText = document.getElementById("progressText");
-
-function loadEvent() {
-  const ev = events[current];
-  img.src = ev.image;
-  img.classList.remove("reveal");
-
-  progressText.textContent = `Moment ${current + 1} of ${events.length}`;
-  resultText.textContent = "";
-
-  optionsBox.innerHTML = "";
-
-  ev.options.forEach((opt, index) => {
-    const btn = document.createElement("button");
-    btn.textContent = opt;
-
-    btn.onclick = () => checkAnswer(index === ev.correct);
-
-    optionsBox.appendChild(btn);
-  });
-}
-
-function checkAnswer(correct) {
-  if (correct) {
-    img.classList.add("reveal");
-    resultText.textContent = "Correct 💖 You remember this perfectly!";
-
-    setTimeout(() => {
-      current++;
-      if (current < events.length) {
-        loadEvent();
-      } else {
-        showGameEnd();
-      }
-    }, 1500);
-  } else {
-    resultText.textContent = "Not this one 😅 try again!";
-  }
-}
-
-function showGameEnd() {
-  document.querySelector(".guess-game").innerHTML = `
-    <h2 style="color:white;">You got all 5 right 💕</h2>
-    <p style="color:#ffd6e8;font-size:1.2rem;">
-      Every memory with you is special ✨
-    </p>
-  `;
-}
-
-loadEvent();
-</script>
-
 </script>
 
 
 </body>
 </html>
-
-
-
-
