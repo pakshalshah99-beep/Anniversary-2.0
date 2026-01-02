@@ -729,7 +729,7 @@ document.querySelectorAll(".note-card").forEach(card => {
 
 <section id="guess-moment-section">
   <h2>📸 Guess the Moment</h2>
-  <p id="momentCounter">Score: 0 / 5</p>
+  <p id="momentCounter">Question: 0 / 5</p>
 
   <div class="moment-card">
     <img id="momentImage" src="" alt="moment" />
@@ -994,12 +994,12 @@ function accept() {
 
   popup.innerHTML = `
     <div class="popup-box">
-      <h1>You said YES ❤️</h1>
+      <h1>She said YES ❤️</h1>
       <p>
         From this moment till forever,<br>
         it’s Pakshal & Ichchha ✨
       </p>
-      <p style="margin-top:20px;">I love you so much baby💖</p>
+      <p style="margin-top:20px;">I love you 💖</p>
     </div>
   `;
 
@@ -1219,7 +1219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       momentOptionsEl.appendChild(btn);
     });
 
-    momentCounterEl.textContent = `Score: ${momentScore+1} / ${momentData.length}`;
+    momentCounterEl.textContent = `Score: ${momentScore} / ${momentData.length}`;
   }
 
   function handleMomentAnswer(selectedIndex, button) {
@@ -1343,11 +1343,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
