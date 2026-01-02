@@ -1017,10 +1017,6 @@ function accept() {
     });
   }
 }
-  // Ensure music keeps playing
-  if (music.paused) {
-    music.play().catch(() => {});
-  }
 
 /* FIREWORKS */
 const canvas = document.getElementById("fireworks");
@@ -1340,5 +1336,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+
 
 
