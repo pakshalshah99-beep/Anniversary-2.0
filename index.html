@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link  rel="stylesheet"  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Handlee&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -273,14 +271,6 @@ footer { padding: 30px; opacity: 0.7; }
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
-#indoreMap {
-  height: 450px !important;
-  width: 100%;
-  max-width: 900px;
-  margin: 40px auto;
-  border-radius: 20px;
-  overflow: hidden;
-}
 
 </style>
 
@@ -369,9 +359,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let matchedCount = 0;
 
   const timelineData = [
-    { title: "First Concert Together 🎶", date:"24 Dec 2025", image:"concert.jpg", message:"Our first concert together — SUNIDHI CHAUHAN !! loud music, full on dancing vibes 💕", caption:"The night where music and memories became one 🎵✨" },
+    { title: "First Concert Together 🎶", date:"24 Dec 2025", image:"sunidhi.jpeg", message:"Our first concert together — SUNIDHI CHAUHAN !! loud music, full on dancing vibes 💕", caption:"The night where music and memories became one 🎵✨" },
     { title: "First Time We Held Hands 🤝", date:"5 Dec 2022", image:"hands.jpeg", message:"That tiny moment meant everything 🥺 Remember in auto, I smelled your hair and it was sooooooo good", caption:"A small gesture, a forever feeling 🤍" },
-    { title: "Long Conversation at Eiffel Tower 🗼", date:"29 Nov 2023", image:"step.jpg", message:"My last day in Europe and we talking endlessly for 3 hours, and it felt weirdly comfortable and romantic! 💫", caption:"Paris, talks & magic ✨" },
+    { title: "Long Conversation at Eiffel Tower 🗼", date:"29 Nov 2023", image:"videocall.jpeg", message:"My last day in Europe and we talking endlessly for 3 hours, and it felt weirdly comfortable and romantic! 💫", caption:"Paris, talks & magic ✨" },
     { title: "First Date 💑", date:"08 Jan 2025", image:"firstdate.jpeg", message:"Where our story really began ❤️, Adam's Ale - it was soo much fun!", caption:"The beginning of us 💗" },
     { title: "Bollywood-Themed Party 🎬", date:"3 Mar 2025", image:"bollywood.jpeg", message:"Drama, laughter, and us being us Perfect SRK and Naina combo💃🕺", caption:"Main character energy 🌟" }
   ];
@@ -523,18 +513,13 @@ setInterval(updateCountdown, 1000);
     <p id="lightbox-caption"></p>
   </div>
 </div>
-	
+
 
 <section>
-  <h2>Places We’ve Been - Mumbai 💕</h2>
+  <h2>Places We’ve Been 💕</h2>
+
 <div id="mumbaiMap"></div>
 </section>
-
-<section>
-  <h2>Places We’ve Been – Indore 💛</h2>
- <div id="indoreMap"></div>
-</section>
-
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -637,6 +622,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .addTo(map)
     .bindPopup(popupContent);
 });
+
+
 
 });
 </script>
@@ -1130,9 +1117,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let matchedCount = 0;
 
   const timelineData = [
-    { title: "First Concert Together 🎶", date:"24 Dec 2025", image:"concert.jpg", message:"Our first concert together — SUNIDHI CHAUHAN !! loud music, full on dancing vibes 💕", caption:"The night where music and memories became one 🎵✨" },
+    { title: "First Concert Together 🎶", date:"24 Dec 2025", image:"Sunidhi.jpeg", message:"Our first concert together — SUNIDHI CHAUHAN !! loud music, full on dancing vibes 💕", caption:"The night where music and memories became one 🎵✨" },
     { title: "First Time We Held Hands 🤝", date:"5 Dec 2022", image:"hands.jpeg", message:"That tiny moment meant everything 🥺 Remember in auto, I smelled your hair and it was sooooooo good", caption:"A small gesture, a forever feeling 🤍" },
-    { title: "Long Conversation at Eiffel Tower 🗼", date:"29 Nov 2023", image:"step.jpg", message:"My last day in Europe and we talking endlessly for 3 hours, and it felt weirdly comfortable and romantic! 💫", caption:"Paris, talks & magic ✨" },
+    { title: "Long Conversation at Eiffel Tower 🗼", date:"29 Nov 2023", image:"paris.jpeg", message:"My last day in Europe and we talking endlessly for 3 hours, and it felt weirdly comfortable and romantic! 💫", caption:"Paris, talks & magic ✨" },
     { title: "First Date 💑", date:"08 Jan 2025", image:"firstdate.jpeg", message:"Where our story really began ❤️, Adam's Ale - it was soo much fun!", caption:"The beginning of us 💗" },
     { title: "Bollywood-Themed Party 🎬", date:"3 Mar 2025", image:"bollywood.jpeg", message:"Drama, laughter, and us being us Perfect SRK and Naina combo💃🕺", caption:"Main character energy 🌟" }
   ];
@@ -1294,83 +1281,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadMoment();
 });
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const indoreMap = L.map("indoreMap").setView([22.7196, 75.8577], 12);
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: "© OpenStreetMap"
-  }).addTo(indoreMap);
-
-  const indorePlaces = [
-    {
-      name: "IIM Indore",
-      coords: [22.6400, 75.8200],
-      note: "Where we met and everything began ❤️",
-      image: "iimindore.jpeg"
-    },
-    {
-      name: "Simcha",
-      coords: [22.6694, 75.8168],
-      note: "What a wrestling match! XD kya dhoya tha tune mereko 💛",
-      image: "simcha.jpeg"
-    },
-    {
-      name: "Snow Kingdom",
-      coords: [22.7167, 75.8678],
-      note: "Such a cute photo - one of my fav ✨",
-      image: "snowworld.jpeg"
-    },
-    {
-      name: "Red Maple – Rau",
-      coords:  [22.6300, 75.8300],,
-      note: "Our Second date - cute place 🏨💕",
-      image: "redmaple.jpeg"
-    },
-    {
-      name: "TI Mall",
-      coords: [22.7116, 75.8413],
-      note: "Our first Valentine's day together 💫",
-      image: "krosson.jpeg"
-    },
-    {
-      name: "Ring Road Social",
-      coords: [22.7199, 75.8572],
-      note: "Good food + Banarasi Patiala + Dance 🍕❤️",
-      image: "rrsocial.jpeg"
-    }
-  ];
-
-  indorePlaces.forEach(place => {
-    const popupHTML = `
-      <div style="width:220px; text-align:center;">
-        <img 
-          src="${place.image}"
-          style="
-            width:100%;
-            height:auto;
-            max-height:260px;
-            object-fit:contain;
-            border-radius:12px;
-            background:#000;
-            margin-bottom:8px;
-          "
-        />
-        <strong>${place.name}</strong><br/>
-        <span>${place.note}</span>
-      </div>
-    `;
-
-    L.marker(place.coords)
-      .addTo(indoreMap)
-      .bindPopup(popupHTML);
-  });
-
-});
-</script>	
 
 </body>
 </html>
-
