@@ -286,17 +286,15 @@ footer { padding: 30px; opacity: 0.7; }
 
 </head>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto">
   <source src="song.mp3" type="audio/mpeg">
 </audio>
+
 
 <body>
 
 <canvas id="fireworks"></canvas>
 
-<audio autoplay loop>
-    <source src="song.mp3" type="audio/mpeg">
-</audio>
 <div class="scroll-container">
 
 <section style="position:relative; overflow:hidden;">
@@ -999,31 +997,32 @@ function accept() {
         From this moment till forever,<br>
         it’s Pakshal & Ichchha ✨
       </p>
-      <p style="margin-top:20px;">I love you 💖</p>
+      <p style="margin-top:20px;">I love you so much 💖</p>
     </div>
   `;
 
+  document.getElementById("finalPopup").style.display = "flex";
+  const music = document.getElementById("bgMusic");
+
+  if (music.paused) {
+    music.volume = 0;
+    music.play().then(() => {
+      let fade = setInterval(() => {
+        if (music.volume < 0.6) {
+          music.volume += 0.02;
+        } else {
+          clearInterval(fade);
+        }
+      }, 150);
+    }).catch(() => {
+      console.log("Playback blocked until user gesture");
+    });
+  }
+}
   // Ensure music keeps playing
   if (music.paused) {
     music.play().catch(() => {});
   }
-}
-music.volume = 0;
-let fade = setInterval(() => {
-  if (music.volume < 0.6) {
-    music.volume += 0.02;
-  } else {
-    clearInterval(fade);
-  }
-}, 200);
-
-document.addEventListener("touchstart", () => {
-  const music = document.getElementById("bgMusic");
-  if (music && music.paused) {
-    music.play().catch(()=>{});
-  }
-}, { once: true });
-
 
 /* FIREWORKS */
 const canvas = document.getElementById("fireworks");
@@ -1343,3 +1342,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+
