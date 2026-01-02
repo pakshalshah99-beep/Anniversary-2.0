@@ -526,14 +526,12 @@ setInterval(updateCountdown, 1000);
 
 <section>
   <h2>Places We’ve Been - Mumbai 💕</h2>
-
 <div id="mumbaiMap"></div>
 </section>
 
-	<section>
+<section>
   <h2>Places We’ve Been – Indore 💛</h2>
-
-  <div id="indoreMap"></div>
+ <div id="indoreMap"></div>
 </section>
 
 
@@ -641,82 +639,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const indoreMap = L.map("indoreMap").setView([22.7196, 75.8577], 12);
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: "© OpenStreetMap"
-  }).addTo(indoreMap);
-
-  const indorePlaces = [
-    {
-      name: "IIM Indore",
-      coords: [22.6400, 75.8200],
-      note: "Where we met and everything began ❤️",
-      image: "iimindore.jpeg"
-    },
-    {
-      name: "Simcha",
-      coords: [22.6694, 75.8168],
-      note: "What a wrestling match! XD kya dhoya tha tune mereko 💛",
-      image: "simcha.jpeg"
-    },
-    {
-      name: "Snow Kingdom",
-      coords: [22.7167, 75.8678],
-      note: "Such a cute photo - one of my fav ✨",
-      image: "snowworld.jpeg"
-    },
-    {
-      name: "Red Maple – Rau",
-      coords:  [22.6300, 75.8300],,
-      note: "Our Second date - cute place 🏨💕",
-      image: "redmaple.jpeg"
-    },
-    {
-      name: "TI Mall",
-      coords: [22.7116, 75.8413],
-      note: "Our first Valentine's day together 💫",
-      image: "krosson.jpeg"
-    },
-    {
-      name: "Ring Road Social",
-      coords: [22.7199, 75.8572],
-      note: "Good food + Banarasi Patiala + Dance 🍕❤️",
-      image: "rrsocial.jpeg"
-    }
-  ];
-
-  indorePlaces.forEach(place => {
-    const popupHTML = `
-      <div style="width:220px; text-align:center;">
-        <img 
-          src="${place.image}"
-          style="
-            width:100%;
-            height:auto;
-            max-height:260px;
-            object-fit:contain;
-            border-radius:12px;
-            background:#000;
-            margin-bottom:8px;
-          "
-        />
-        <strong>${place.name}</strong><br/>
-        <span>${place.note}</span>
-      </div>
-    `;
-
-    L.marker(place.coords)
-      .addTo(indoreMap)
-      .bindPopup(popupHTML);
-  });
-
-});
-</script>	
 
 <section id="love-notes">
   <h2 class="notes-title">Little Notes From My Heart 💗</h2>
@@ -1371,21 +1293,82 @@ document.addEventListener("DOMContentLoaded", () => {
   loadMoment();
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  const indoreMap = L.map("indoreMap").setView([22.7196, 75.8577], 12);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: "© OpenStreetMap"
+  }).addTo(indoreMap);
+
+  const indorePlaces = [
+    {
+      name: "IIM Indore",
+      coords: [22.6400, 75.8200],
+      note: "Where we met and everything began ❤️",
+      image: "iimindore.jpeg"
+    },
+    {
+      name: "Simcha",
+      coords: [22.6694, 75.8168],
+      note: "What a wrestling match! XD kya dhoya tha tune mereko 💛",
+      image: "simcha.jpeg"
+    },
+    {
+      name: "Snow Kingdom",
+      coords: [22.7167, 75.8678],
+      note: "Such a cute photo - one of my fav ✨",
+      image: "snowworld.jpeg"
+    },
+    {
+      name: "Red Maple – Rau",
+      coords:  [22.6300, 75.8300],,
+      note: "Our Second date - cute place 🏨💕",
+      image: "redmaple.jpeg"
+    },
+    {
+      name: "TI Mall",
+      coords: [22.7116, 75.8413],
+      note: "Our first Valentine's day together 💫",
+      image: "krosson.jpeg"
+    },
+    {
+      name: "Ring Road Social",
+      coords: [22.7199, 75.8572],
+      note: "Good food + Banarasi Patiala + Dance 🍕❤️",
+      image: "rrsocial.jpeg"
+    }
+  ];
+
+  indorePlaces.forEach(place => {
+    const popupHTML = `
+      <div style="width:220px; text-align:center;">
+        <img 
+          src="${place.image}"
+          style="
+            width:100%;
+            height:auto;
+            max-height:260px;
+            object-fit:contain;
+            border-radius:12px;
+            background:#000;
+            margin-bottom:8px;
+          "
+        />
+        <strong>${place.name}</strong><br/>
+        <span>${place.note}</span>
+      </div>
+    `;
+
+    L.marker(place.coords)
+      .addTo(indoreMap)
+      .bindPopup(popupHTML);
+  });
+
+});
+</script>	
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
